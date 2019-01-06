@@ -2,33 +2,133 @@ swagger: "2.0"
 info:
   description: This is the swagger file that goes with our server code
   version: "1.0.0"
-  title: Swagger REST Article
+  title: Swagger ReST Article
 consumes:
-  - "application/json"
+  - application/json
 produces:
-  - "application/json"
+  - application/json
 
-basePath: "/api"
+basePath: /api
 
 # Paths supported by the server application
 paths:
   /animals:
     get:
-      operationId: "animals.read"
+      operationId: animals.read_all
       tags:
-        - "Animals"
-      summary: "The animals data structure supported by the server application"
-      description: "Read the list of animals"
+        - animals
+      summary: Read the entire list of animals
+      description: Read the list of animals
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Number of animals to get from animals
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset from beginning of list where to start gathering animals
+          required: false
       responses:
         200:
-          description: "Successful read animals list operation"
+          description: Successfully read animals list operation
           schema:
-            type: "array"
+            type: array
             items:
               properties:
-                name:
-                  type: "string"
+                fname:
+                  type: string
                 age:
-                  type: "string"
+                  type: integer
                 timestamp:
-                  type: "string"
+                  type: string
+
+    post:
+      operationId: animals.create
+      tags:
+        - animals
+      summary: Create a animal and add it to the animals list
+      description: Create a new animal in the animals list
+      parameters:
+        - name: animal
+          in: body
+          description: animal to create
+          required: True
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+                description: First name of animal to create
+              age:
+                type: integer
+                description: Age of animal to create
+      responses:
+        201:
+          description: Successfully created animal in list
+
+  /animals/{age}:
+    get:
+      operationId: animals.read_one
+      tags:
+        - animals
+      summary: Read one animal from the animals list
+      description: Read one animal from the animals list
+      parameters:
+        - name: age
+          in: path
+          description: Age of the animal to get from the list
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read animal from animals list operation
+          schema:
+            properties:
+              fname:
+                type: string
+              age:
+                type: integer
+              timestamp:
+                type: string
+
+    put:
+      operationId: animals.update
+      tags:
+        - animals
+      summary: Update a animal in the animals list
+      description: Update a animal in the animals list
+      parameters:
+        - name: age
+          in: path
+          description: Age of the animal to update in the list
+          type: string
+          required: True
+        - name: animal
+          in: body
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+              age:
+                type: integer
+      responses:
+        200:
+          description: Successfully updated animal in animals list
+
+    delete:
+      operationId: animals.delete
+      tags:
+        - animals
+      summary: Delete a animal from the animals list
+      description: Delete a animal
+      parameters:
+        - name: age
+          in: path
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a animal from animals list
