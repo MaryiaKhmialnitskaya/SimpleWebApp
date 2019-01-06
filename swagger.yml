@@ -26,9 +26,9 @@ paths:
             type: "array"
             items:
               properties:
-                fname:
+                name:
                   type: "string"
-                lname:
+                age:
                   type: "string"
                 timestamp:
                   type: "string"
