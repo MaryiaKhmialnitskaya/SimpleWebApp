@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   description: This is the swagger file that goes with our server code
   version: "1.0.0"
-  title: Swagger ReST Article
+  title: Swagger Rest Article
 consumes:
   - application/json
 produces:
@@ -12,123 +12,123 @@ basePath: /api
 
 # Paths supported by the server application
 paths:
-  /animals:
+  /people:
     get:
-      operationId: animals.read_all
+      operationId: people.read_all
       tags:
-        - animals
-      summary: Read the entire list of animals
-      description: Read the list of animals
+        - People
+      summary: Read the entire list of people
+      description: Read the list of people
       parameters:
         - name: length
           in: query
           type: integer
-          description: Number of animals to get from animals
+          description: Number of people to get from people
           required: false
         - name: offset
           in: query
           type: integer
-          description: Offset from beginning of list where to start gathering animals
+          description: Offset from beginning of list where to start gathering people
           required: false
       responses:
         200:
-          description: Successfully read animals list operation
+          description: Successfully read people list operation
           schema:
             type: array
             items:
               properties:
                 fname:
                   type: string
-                age:
-                  type: integer
+                lname:
+                  type: string
                 timestamp:
                   type: string
 
     post:
-      operationId: animals.create
+      operationId: people.create
       tags:
-        - animals
-      summary: Create a animal and add it to the animals list
-      description: Create a new animal in the animals list
+        - People
+      summary: Create a person and add it to the people list
+      description: Create a new person in the people list
       parameters:
-        - name: animal
+        - name: person
           in: body
-          description: animal to create
+          description: Person to create
           required: True
           schema:
             type: object
             properties:
               fname:
                 type: string
-                description: First name of animal to create
-              age:
-                type: integer
-                description: Age of animal to create
+                description: First name of person to create
+              lname:
+                type: string
+                description: Last name of person to create
       responses:
         201:
-          description: Successfully created animal in list
+          description: Successfully created person in list
 
-  /animals/{age}:
+  /people/{lname}:
     get:
-      operationId: animals.read_one
+      operationId: people.read_one
       tags:
-        - animals
-      summary: Read one animal from the animals list
-      description: Read one animal from the animals list
+        - People
+      summary: Read one person from the people list
+      description: Read one person from the people list
       parameters:
-        - name: age
+        - name: lname
           in: path
-          description: Age of the animal to get from the list
+          description: Last name of the person to get from the list
           type: string
           required: True
       responses:
         200:
-          description: Successfully read animal from animals list operation
+          description: Successfully read person from people list operation
           schema:
             properties:
               fname:
                 type: string
-              age:
-                type: integer
+              lname:
+                type: string
               timestamp:
                 type: string
 
     put:
-      operationId: animals.update
+      operationId: people.update
       tags:
-        - animals
-      summary: Update a animal in the animals list
-      description: Update a animal in the animals list
+        - People
+      summary: Update a person in the people list
+      description: Update a person in the people list
       parameters:
-        - name: age
+        - name: lname
           in: path
-          description: Age of the animal to update in the list
+          description: Last name of the person to update in the list
           type: string
           required: True
-        - name: animal
+        - name: person
           in: body
           schema:
             type: object
             properties:
               fname:
                 type: string
-              age:
-                type: integer
+              lname:
+                type: string
       responses:
         200:
-          description: Successfully updated animal in animals list
+          description: Successfully updated person in people list
 
     delete:
-      operationId: animals.delete
+      operationId: people.delete
       tags:
-        - animals
-      summary: Delete a animal from the animals list
-      description: Delete a animal
+        - People
+      summary: Delete a person from the people list
+      description: Delete a person
       parameters:
-        - name: age
+        - name: lname
           in: path
-          type: integer
+          type: string
           required: True
       responses:
         200:
-          description: Successfully deleted a animal from animals list
+          description: Successfully deleted a person from people list
